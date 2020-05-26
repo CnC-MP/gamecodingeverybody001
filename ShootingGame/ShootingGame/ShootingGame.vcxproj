@@ -131,8 +131,6 @@
     <ClInclude Include="interface_design_tool.h" />
     <ClInclude Include="location_struct.h" />
     <ClInclude Include="main_interface.h" />
-    <ClInclude Include="monster_image.h" />
-    <ClInclude Include="monster_struct.h" />
     <ClInclude Include="start.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

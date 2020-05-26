@@ -8,14 +8,13 @@ void gamestart();
 
 void gamestart() {
 	int temp;
-	hideCursor();
 	system("mode con:cols=46 lines=30");
 	while (true) {
 		main_interface_write();
 		temp = _getch();
 		if (temp == 13) {
 			system("cls");
-			battle(1);
+			battle();
 		}
 	}
 }
