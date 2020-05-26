@@ -23,5 +23,14 @@
     <ClInclude Include="interface_design_tool.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="gameplay.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="main_interface.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cursor_status.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
