@@ -167,7 +167,7 @@ void fill(int x1, int y1, int x2, int y2, char c)
 	}
 }
 
-void fill2(int x1, int y1, int x2, int y2, const char c[3])
+void fill2(int x1, int y1, int x2, int y2, const char c[3]) //특수기호로 채우기
 {
 	for (temp_interface_design_fuction = 0; temp_interface_design_fuction <= (y2 - y1); temp_interface_design_fuction++)
 	{

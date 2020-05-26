@@ -38,5 +38,11 @@
     <ClInclude Include="location_struct.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="monster_image.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="monster_struct.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
