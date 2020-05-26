@@ -2,6 +2,7 @@
 #include "main_interface.h"
 #include "cursor_status.h"
 #include <conio.h>
+#include "start.h"
 
 void gamestart();
 
