@@ -2,6 +2,7 @@
 #include "main_interface.h"
 #include "cursor_status.h"
 #include <conio.h>
+#include "start.h"
 
 void gamestart();
 
@@ -11,5 +12,8 @@ void gamestart() {
 	while (true) {
 		main_interface_write();
 		temp = _getch();
+		if (temp == 13) {
+			battle();
+		}
 	}
 }
