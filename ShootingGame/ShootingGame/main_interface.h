@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "interface_design_tool.h"
+#include "start.h"
 
 void main_interface_write();
 void main_interface_image();
