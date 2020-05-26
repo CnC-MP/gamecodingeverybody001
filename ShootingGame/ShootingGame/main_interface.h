@@ -12,7 +12,7 @@ void main_interface_write() {
 	gotoxy(18, 19);
 	color_change(14);
 	printf("게임  시작\n");
-	color_change(7); 
+	color_change(7);
 	gotoxy(14, 21);
 	printf("Enter키를 누르시오\n");
 }
