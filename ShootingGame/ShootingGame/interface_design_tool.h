@@ -11,6 +11,7 @@
 int temp_interface_design_fuction = 0;
 int temp2_interface_design_fuction = 0;
 
+
 int wsleep(int* milliseconds, int* result);
 void gotoxy(int x, int y); //커서를 x, y 좌표로 이동
 void horizontal(int a, int b, int c, int d, const char e[3]); //e를 (a,b)에서 d번째 마다 c번 가로줄을 입력 
