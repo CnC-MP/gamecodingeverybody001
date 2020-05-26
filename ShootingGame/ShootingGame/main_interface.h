@@ -14,7 +14,7 @@ void main_interface_write() {
 	printf("게임  시작\n");
 	color_change(7); 
 	gotoxy(14, 21);
-	printf("Enter키를 누르시오");
+	printf("Enter키를 누르시오\n");
 }
 
 void main_interface_image() {
