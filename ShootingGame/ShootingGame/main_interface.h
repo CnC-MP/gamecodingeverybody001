@@ -11,10 +11,10 @@ void main_interface_write() {
 	main_interface_image();
 	gotoxy(18, 19);
 	color_change(14);
-	printf("게임 시작\n");
+	printf("게임  시작\n");
 	color_change(7); 
-	gotoxy(13, 21);
-	printf("Enter키를 누르시오.");
+	gotoxy(14, 21);
+	printf("Enter키를 누르시오");
 }
 
 void main_interface_image() {
