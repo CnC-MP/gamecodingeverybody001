@@ -12,5 +12,8 @@ void gamestart() {
 	while (true) {
 		main_interface_write();
 		temp = _getch();
+		if (temp == 13) {
+			battle();
+		}
 	}
 }
