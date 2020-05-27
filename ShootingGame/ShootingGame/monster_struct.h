@@ -7,6 +7,13 @@ typedef struct Monster_st {
 	int monster_width;
 	int monster_height;
 	int monster_tickrate;
+	int monster_attack_tickrate;
 	bool monster_toward_right;
 	int preset;
 } monster_st;
+
+typedef struct Monster_ammu {
+	location begin;
+	location end;
+	location curr;
+} monster_ammu;

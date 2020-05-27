@@ -18,4 +18,5 @@ void monster_feature_determine(monster_st* monster, int stage) {
 	monster->monster_width = 3;
 	monster->monster_height = 3;
 	monster->monster_tickrate = 50;
+	monster->monster_attack_tickrate = 30;
 }
