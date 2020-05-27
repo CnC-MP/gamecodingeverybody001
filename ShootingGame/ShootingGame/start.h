@@ -36,11 +36,6 @@ void battle(int stage) {
 	while (true) {
 		//플레이어 표시 관련 함수
 		monster_write(&monster);
-
-
-		//_getch();
-
-
 		monster_movement(&monster, &tick, false);
 		//플레이어 총알 발사 관련 함수
 		//몬스터 총알 발사 관련 함수
@@ -102,13 +97,7 @@ void battle(int stage) {
 
 void monster_movement(monster_st* monster, int* tick, bool check) {
 	if ((*tick % monster->monster_tickrate) == 0 || check) {
-
-
 		*tick = 1;
-
-
-		gotoxy(0, 10); printf("first:  %d", *tick);
-
 		if (monster->preset == 0) {
 			srand(time(NULL));
 			if (monster->monster_pos.xPos == 0) {
@@ -130,16 +119,6 @@ void monster_movement(monster_st* monster, int* tick, bool check) {
 				monster->preset = rand() % (monster->monster_pos.xPos / 2) + 1;
 			}
 		}
-
-
-		printf(" preset: %2d", monster->preset);
-		if (monster->monster_toward_right) {
-			printf(" right");
-		}
-		else {
-			printf("  left");
-		}
-
 		monster->ex_monster_pos.xPos = monster->monster_pos.xPos;
 		if (monster->monster_toward_right) {
 			monster->monster_pos.xPos += 2;
@@ -151,18 +130,7 @@ void monster_movement(monster_st* monster, int* tick, bool check) {
 		}
 	}
 	else {
-
-
 		*tick = *tick + 1;
-
-		gotoxy(0, 10); printf("second: %d", *tick);
-		printf(" preset: %2d", monster->preset);
-		if (monster->monster_toward_right) {
-			printf(" right");
-		}
-		else {
-			printf("  left");
-		}
 		//_getch();
 	}
 }
