@@ -30,13 +30,18 @@ void battle(int stage) {
 
 
 	int upper_limit = monster.monster_pos.yPos + monster.monster_height;
-	//monster_movement(&monster, &tick, true);
+	monster_movement(&monster, &tick, true);
 
 
 	while (true) {
 		//플레이어 표시 관련 함수
 		monster_write(&monster);
-		//monster_movement(&monster, &tick, false);
+
+
+		//_getch();
+
+
+		monster_movement(&monster, &tick, false);
 		//플레이어 총알 발사 관련 함수
 		//몬스터 총알 발사 관련 함수
 		//플레이어 총알 표시 관련 함수
@@ -97,10 +102,22 @@ void battle(int stage) {
 
 void monster_movement(monster_st* monster, int* tick, bool check) {
 	if ((*tick % monster->monster_tickrate) == 0 || check) {
+
+
 		*tick = 1;
+
+
+		gotoxy(0, 10); printf("first:  %d", *tick);
+
 		if (monster->preset == 0) {
 			srand(time(NULL));
-			if ((rand() % 2) == 0) {
+			if (monster->monster_pos.xPos == 0) {
+				monster->monster_toward_right = true;
+			}
+			else if (monster->monster_pos.xPos == (46 - 2 * monster->monster_width)) {
+				monster->monster_toward_right = false;
+			}
+			else if ((rand() % 2) == 0) {
 				monster->monster_toward_right = false;
 			}
 			else {
@@ -113,6 +130,16 @@ void monster_movement(monster_st* monster, int* tick, bool check) {
 				monster->preset = rand() % (monster->monster_pos.xPos / 2) + 1;
 			}
 		}
+
+
+		printf(" preset: %2d", monster->preset);
+		if (monster->monster_toward_right) {
+			printf(" right");
+		}
+		else {
+			printf("  left");
+		}
+
 		monster->ex_monster_pos.xPos = monster->monster_pos.xPos;
 		if (monster->monster_toward_right) {
 			monster->monster_pos.xPos += 2;
@@ -124,9 +151,18 @@ void monster_movement(monster_st* monster, int* tick, bool check) {
 		}
 	}
 	else {
-		printf("in: %d", *tick);
+
+
 		*tick = *tick + 1;
-		printf("in: %d", *tick);
+
+		gotoxy(0, 10); printf("second: %d", *tick);
+		printf(" preset: %2d", monster->preset);
+		if (monster->monster_toward_right) {
+			printf(" right");
+		}
+		else {
+			printf("  left");
+		}
 		//_getch();
 	}
 }
