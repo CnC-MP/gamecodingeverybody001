@@ -8,5 +8,5 @@ typedef struct Monster_st {
 	int monster_height;
 	int monster_tickrate;
 	bool monster_toward_right;
-	int preset;
+	int monster_preset;
 } monster_st;
