@@ -133,6 +133,7 @@
     <ClInclude Include="main_interface.h" />
     <ClInclude Include="monster_image.h" />
     <ClInclude Include="monster_struct.h" />
+    <ClInclude Include="player_struct.h" />
     <ClInclude Include="start.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

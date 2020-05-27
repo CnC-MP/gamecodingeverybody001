@@ -7,7 +7,8 @@ typedef struct Monster_st {
 	int monster_width;
 	int monster_height;
 	int monster_tickrate;
-	int monster_attack_tickrate;
+	int monster_fire_tickrate;
+	int monster_ammu_movement_tickrate;
 	bool monster_toward_right;
 	int preset;
 } monster_st;
