@@ -6,6 +6,7 @@
 #include "monster_struct.h"
 #include <time.h>
 #include "cursor_status.h"
+#include "player_struct.h"
 
 void battle(int stage);
 void monster_movement(monster_st* monster, int* tick, bool check);
@@ -14,11 +15,14 @@ void battle(int stage) {
 	int lower_limit = 26;
 	int temp;
 	int tick;
-	location player_pos;
-	player_pos.xPos = 22;
-	player_pos.yPos = 26;
-	gotoxy(player_pos.xPos, player_pos.yPos);
+	player_st player;
+	player.player_pos.xPos = 22;
+	player.player_pos.yPos = 26;	
+	gotoxy(player.player_pos.xPos, player.player_pos.yPos);
 	printf("♠");
+	player.player_hp = 100;
+	player.player_damage = ;
+	player.player_critical = ;
 
 	monster_st monster;
 	monster_feature_determine(&monster, stage);
@@ -45,47 +49,47 @@ void battle(int stage) {
 		if (_kbhit() != 0) {
 			temp = _getch();
 			if (temp == 'a' || temp == 'A') {// 0
-				if (player_pos.xPos > 0)
+				if (player.player_pos.xPos > 0)
 				{
-					player_pos.xPos -= 2;
-					player_pos.yPos;
+					player.player_pos.xPos -= 2;
+					player.player_pos.yPos;
 				}
 			}
 			else if (temp == 's' || temp == 'S') { //밑에서 3번쨰까지
-				if (player_pos.yPos < lower_limit) {
-					player_pos.xPos;
-					++player_pos.yPos;
+				if (player.player_pos.yPos < lower_limit) {
+					player.player_pos.xPos;
+					++player.player_pos.yPos;
 				}
 			}
 			else if (temp == 'd' || temp == 'D') {
-				if (player_pos.xPos < 44) {
-					player_pos.xPos += 2; //44
-					player_pos.yPos;
+				if (player.player_pos.xPos < 44) {
+					player.player_pos.xPos += 2; //44
+					player.player_pos.yPos;
 				}
 			}
 			else if (temp == 'w' || temp == 'W') {
-				if (player_pos.yPos > upper_limit) {
-					player_pos.xPos;					//
-					--player_pos.yPos;
+				if (player.player_pos.yPos > upper_limit) {
+					player.player_pos.xPos;					//
+					--player.player_pos.yPos;
 				}
 			}
 
-			gotoxy(player_pos.xPos, player_pos.yPos);
+			gotoxy(player.player_pos.xPos, player.player_pos.yPos);
 			printf("♠");
 			if (temp == 'a' || temp == 'A') {
-				gotoxy(player_pos.xPos + 2, player_pos.yPos);
+				gotoxy(player.player_pos.xPos + 2, player.player_pos.yPos);
 				printf("  ");
 			}
 			else if (temp == 's' || temp == 'S') {
-				gotoxy(player_pos.xPos, player_pos.yPos - 1);
+				gotoxy(player.player_pos.xPos, player.player_pos.yPos - 1);
 				printf("  ");
 			}
 			else if (temp == 'd' || temp == 'D') {
-				gotoxy(player_pos.xPos - 2, player_pos.yPos);
+				gotoxy(player.player_pos.xPos - 2, player.player_pos.yPos);
 				printf("  ");
 			}
 			else if (temp == 'w' || temp == 'W') {
-				gotoxy(player_pos.xPos, player_pos.yPos + 1);
+				gotoxy(player.player_pos.xPos, player.player_pos.yPos + 1);
 				printf("  ");
 			}
 		}
