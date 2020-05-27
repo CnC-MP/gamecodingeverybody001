@@ -18,5 +18,5 @@ void monster_write(monster_st* monster) {
 void monster_feature_determine(monster_st* monster, int stage) {
 	monster->monster_width = 3;
 	monster->monster_height = 3;
-	monster->monster_tickrate = 5;
+	monster->monster_tickrate = 20;
 }

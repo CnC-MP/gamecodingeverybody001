@@ -21,8 +21,7 @@ void battle(int stage) {
 	gotoxy(player.player_pos.xPos, player.player_pos.yPos);
 	printf("¢¼");
 	player.player_hp = 100;
-	player.player_damage = ;
-	player.player_critical = ;
+	
 
 	monster_st monster;
 	monster_feature_determine(&monster, stage);
