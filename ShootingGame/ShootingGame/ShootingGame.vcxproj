@@ -127,10 +127,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cursor_status.h" />
+    <ClInclude Include="ending_interface.h" />
     <ClInclude Include="gameplay.h" />
     <ClInclude Include="interface_design_tool.h" />
     <ClInclude Include="location_struct.h" />
     <ClInclude Include="main_interface.h" />
+    <ClInclude Include="monster_feature.h" />
     <ClInclude Include="monster_image.h" />
     <ClInclude Include="monster_struct.h" />
     <ClInclude Include="player_struct.h" />

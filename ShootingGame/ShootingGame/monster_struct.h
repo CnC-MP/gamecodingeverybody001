@@ -4,6 +4,7 @@
 typedef struct Monster_st {
 	location monster_pos;
 	location ex_monster_pos;
+	location monster_hp_bar_pos;
 	int monster_width;
 	int monster_height;
 	int monster_tickrate;
@@ -12,7 +13,8 @@ typedef struct Monster_st {
 	bool monster_toward_right;
 	int monster_preset;
 	int monster_hp;
-	int monster_attack;
+	int monster_max_hp;
+	int monster_damage;
 } monster_st;
 
 typedef struct Monster_ammu {
