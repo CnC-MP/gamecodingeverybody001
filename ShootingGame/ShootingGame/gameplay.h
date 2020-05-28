@@ -3,7 +3,8 @@
 #include "cursor_status.h"
 #include <conio.h>
 #include "start.h"
-
+#include "player_struct.h"
+#include "monster_struct.h"
 void gamestart();
 
 void gamestart() {
@@ -14,8 +15,15 @@ void gamestart() {
 		main_interface_write();
 		temp = _getch();
 		if (temp == 13) {
+			player_st player;
+			monster_st monster;
+
+			player.player_ammu_movement_tickrate = 20;
+			player.player_pos.xPos = 22;
+			player.player_pos.yPos = 26;
+			player.player_hp = 100;
 			system("cls");
-			battle(1);
+			battle(1, &monster, &player);
 		}
 	}
 }
