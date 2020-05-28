@@ -3,6 +3,7 @@
 
 typedef struct Player_st {
 	location player_pos;
+	location player_hp_bar_pos;
 	int player_hp; //체력
 	int player_damage; //공격력
 	int player_critical; //치명타
