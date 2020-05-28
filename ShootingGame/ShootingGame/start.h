@@ -53,11 +53,10 @@ void battle(int stage, monster_st* monster, player_st* player) {
 	monster_movement(monster, &monster_movement_tick, true);
 	monster_fire(monster, player, deque_monster_ammu, &monster_fire_tick, true);
 	player_ammu_movement(player, deque_player_ammu, &player_fire_tick, true);
-	
 
 	while (stage_finish == 0) {
 
-		monster_write(monster);
+		monster_write(monster, stage);
 		monster_health_bar_write(monster);
 		monster_movement(monster, &monster_movement_tick, false);
 		player_ammu_movement(player, deque_player_ammu, &player_fire_tick, false);
@@ -166,10 +165,10 @@ void monster_movement(monster_st* monster, int* monster_movement_tick, bool chec
 		*monster_movement_tick = 1;
 		if (monster->monster_preset == 0) {
 			srand((unsigned int)time(NULL));
-			if (monster->monster_pos.xPos == 0) {
+			if (monster->monster_pos.xPos <= 1) {
 				monster->monster_toward_right = true;
 			}
-			else if (monster->monster_pos.xPos == (46 - 2 * monster->monster_width)) {
+			else if (monster->monster_pos.xPos >= (45 - 2 * monster->monster_width)) {
 				monster->monster_toward_right = false;
 			}
 			else if ((rand() % 2) == 0) {
@@ -284,7 +283,7 @@ int monster_be_shot(player_st* player, monster_st* monster, std::deque<location>
 	for (auto& element : deque_player_ammu) {
 		bool bool_temp = false;
 		if ((element.xPos >= (monster->monster_pos.xPos - 1)) && (element.xPos <= (monster->monster_pos.xPos + 2 * monster->monster_width - 1))) {
-			if ((element.yPos >= monster->monster_pos.yPos) && (element.yPos <= (monster->monster_pos.yPos + monster->monster_pos.yPos - 1))) {
+			if ((element.yPos >= monster->monster_pos.yPos) && (element.yPos <= (monster->monster_pos.yPos + monster->monster_height - 1))) {
 				bool_temp = true;
 			}
 		}
@@ -381,6 +380,8 @@ int player_take_damage(player_st* player, monster_st* monster) {
 }
 
 void monster_health_bar_write(monster_st* monster) {
+	gotoxy(monster->monster_hp_bar_pos.xPos, monster->monster_hp_bar_pos.yPos + 1);
+	printf("          ");
 	int num = (int)round(10.0 * monster->monster_hp / (double)monster->monster_max_hp);
 	gotoxy(monster->monster_hp_bar_pos.xPos, monster->monster_hp_bar_pos.yPos);
 	printf("                    ");
@@ -398,5 +399,12 @@ void monster_health_bar_write(monster_st* monster) {
 	}
 	for (int i = 10; i > num; i--) {
 		printf("бр");
+	}
+	gotoxy(monster->monster_hp_bar_pos.xPos, monster->monster_hp_bar_pos.yPos + 1);
+	if (monster->monster_hp > 99999999) {
+		printf("99999999+");
+	}
+	else {
+		printf("%d", monster->monster_hp);
 	}
 }

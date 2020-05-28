@@ -13,15 +13,15 @@ void gamestart() {
 	int temp;
 	hideCursor();
 	system("mode con:cols=46 lines=30");
-	//win_image(1);
-	//_getch();
 	while (true) {
 		main_interface_write();
 		temp = _getch();
 		if (temp == 13) {
 			player_st player;
 			monster_st monster;
-			monster.monster_image_num = MAX_MONSTER_IMAGE_NUM + 1;
+			monster.monster_templete_num = MAX_MONSTER_IMAGE_NUM + 1;
+			monster.monster_color1 = 0;
+			monster.monster_color2 = 0;
 
 			player.player_ammu_movement_tickrate = 20;
 			player.player_critical = 2.0;
