@@ -11,12 +11,3 @@ typedef struct Player_st {
 	double player_critical_percent;	//critical확률
 	int player_ammu_movement_tickrate; //발사 속도
 } player_st;
-
-/*
-
-10
-35
-85
-
-
-*/

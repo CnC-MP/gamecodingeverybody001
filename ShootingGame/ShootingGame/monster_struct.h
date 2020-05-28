@@ -15,6 +15,9 @@ typedef struct Monster_st {
 	int monster_hp;
 	int monster_max_hp;
 	int monster_damage;
+	int monster_templete_num;
+	int monster_color1;
+	int monster_color2;
 } monster_st;
 
 typedef struct Monster_ammu {
