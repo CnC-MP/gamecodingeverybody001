@@ -26,6 +26,7 @@ int monster_take_damage(player_st* player, monster_st* monster);
 int player_take_damage(player_st* player, monster_st* monster);
 void monster_health_bar_write(monster_st* monster);
 void player_health_bar_write(player_st* player);
+void monster1();
 
 void battle(int stage, monster_st* monster, player_st* player) {
 	int temp_getch;
@@ -52,7 +53,7 @@ void battle(int stage, monster_st* monster, player_st* player) {
 	monster_movement(monster, &monster_movement_tick, true);
 	monster_fire(monster, player, deque_monster_ammu, &monster_fire_tick, true);
 	player_ammu_movement(player, deque_player_ammu, &player_fire_tick, true);
-
+	monster1();
 	
 
 	while (stage_finish == 0) {
@@ -62,7 +63,7 @@ void battle(int stage, monster_st* monster, player_st* player) {
 		player_ammu_movement(player, deque_player_ammu, &player_fire_tick, false);
 		player_be_shot(player, monster, deque_monster_ammu);
 		player_health_bar_write(player);
-
+		monster1();
 		//플레이어 총알 발사 관련 함수 //직선  //Queue로 만듦
 		//몬스터 총알 발사 관련 함수  //대각선 //Queue로 만듦
 		monster_fire(monster, player, deque_monster_ammu, &monster_fire_tick, false);
@@ -309,11 +310,18 @@ int player_be_shot(player_st* player, monster_st* monster, std::deque<monster_am
 }
 
 void player_health_bar_write(player_st* player) {
-	
+
+	int num = (int)round(10 * player->player_hp / player->player_max_hp);
+
+	gotoxy(player->player_hp_bar_pos.xPos, player->player_hp_bar_pos.yPos + 1); 
+	printf("    ");
+
 	gotoxy(player->player_hp_bar_pos.xPos, player->player_hp_bar_pos.yPos);
 	printf("                    ");
+
 	player->player_hp_bar_pos.xPos = player->player_pos.xPos - 9;
 	player->player_hp_bar_pos.yPos = player->player_pos.yPos + 2;
+
 	if (player->player_hp_bar_pos.xPos < 0) {
 		player->player_hp_bar_pos.xPos = 0;
 	}
@@ -321,6 +329,16 @@ void player_health_bar_write(player_st* player) {
 		player->player_hp_bar_pos.xPos = 26;
 	}
 
+	gotoxy(player->player_hp_bar_pos.xPos, player->player_hp_bar_pos.yPos);
+	for (int i = 0; i < num; i++) {
+		printf("■");
+	}
+	for (int i = 10; i > num; i--) {
+		printf("□");
+	}
+
+	gotoxy(player->player_hp_bar_pos.xPos, player->player_hp_bar_pos.yPos + 1); 
+	printf("%4d", player->player_hp);
 
 }
 
@@ -355,7 +373,7 @@ int player_take_damage(player_st* player, monster_st* monster) {
 }
 
 void monster_health_bar_write(monster_st* monster) {
-	int num = (int)round(10 * monster->monster_hp / monster->monster_max_hp);
+	int num = (int)round(10 * monster->monster_hp / (double)monster->monster_max_hp);
 	gotoxy(monster->monster_hp_bar_pos.xPos, monster->monster_hp_bar_pos.yPos);
 	printf("                    ");
 	monster->monster_hp_bar_pos.xPos = monster->monster_pos.xPos + monster->monster_width - 10;
@@ -375,4 +393,53 @@ void monster_health_bar_write(monster_st* monster) {
 	}
 
 	gotoxy(0, 10); printf("%4d", monster->monster_hp);
+}
+
+
+void monster1() {
+	int xpos = 17, ypos = 5;
+	color_change(12);
+	gotoxy(xpos + 2, ypos + 1);
+	printf("■");
+	gotoxy(xpos + 2, ypos + 2);
+	printf("■");
+	gotoxy(xpos + 2, ypos + 3);
+	printf("■");
+	gotoxy(xpos + 4, ypos + 1);
+	printf("■");
+	gotoxy(xpos + 4, ypos + 2);
+	printf("■");
+	gotoxy(xpos + 4, ypos + 3);
+	printf("■");
+	gotoxy(xpos + 6, ypos + 1);
+	printf("■");
+	gotoxy(xpos + 6, ypos + 2);
+	printf("■");
+	gotoxy(xpos + 6, ypos + 3);
+	printf("■");
+	gotoxy(xpos + 8, ypos + 1);
+	printf("■");
+	gotoxy(xpos + 8, ypos + 2);
+	printf("■");
+	gotoxy(xpos + 8, ypos + 3);
+	printf("■");
+	color_change(7);
+	color_change(13);
+	gotoxy(xpos, ypos);
+	printf("■");
+	gotoxy(xpos + 2, ypos);
+	printf("■");
+	gotoxy(xpos + 8, ypos);
+	printf("■"); 
+	gotoxy(xpos + 10, ypos);
+	printf("■");
+	gotoxy(xpos, ypos + 4);
+	printf("■");
+	gotoxy(xpos + 2, ypos + 4);
+	printf("■");
+	gotoxy(xpos + 8, ypos + 4);
+	printf("■");
+	gotoxy(xpos + 10, ypos + 4);
+	printf("■");
+	color_change(7);
 }
