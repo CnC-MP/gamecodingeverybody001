@@ -36,6 +36,7 @@ void battle(int stage, monster_st* monster, player_st* player) {
 	int monster_fire_tick;
 	int monster_ammu_movement_tick = 1;
 	int player_fire_tick = 1;
+	int cls_tick = 1;
 
 	monster_feature_determine(monster, stage);
 
@@ -54,6 +55,8 @@ void battle(int stage, monster_st* monster, player_st* player) {
 
 	
 	while (stage_finish == 0) {
+		
+
 		monster_write(monster);
 		monster_health_bar_write(monster);
 		monster_movement(monster, &monster_movement_tick, false);
@@ -134,6 +137,7 @@ void battle(int stage, monster_st* monster, player_st* player) {
 				printf("  ");
 			}
 		}
+		//kbhit ¹Ù±ù
 		Sleep(10);
 	}
 	//while ¹Ù±ù
@@ -141,7 +145,9 @@ void battle(int stage, monster_st* monster, player_st* player) {
 		//½Â¸®
 		system("cls");
 		win_image(stage);
+		random_box(player);
 		temp_getch = _getch();
+		battle(stage + 1, monster, player);
 	}
 	else {
 		//ÆÐ¹è
@@ -336,7 +342,7 @@ int player_take_damage(player_st* player, monster_st* monster) {
 }
 
 void monster_health_bar_write(monster_st* monster) {
-	int num = (int)round(10 * monster->monster_hp / monster->monster_max_hp);
+	int num = (int)round(10.0 * monster->monster_hp / (double)monster->monster_max_hp);
 	gotoxy(monster->monster_hp_bar_pos.xPos, monster->monster_hp_bar_pos.yPos);
 	printf("                        ");
 	monster->monster_hp_bar_pos.xPos = monster->monster_pos.xPos + monster->monster_width - 10;
@@ -354,6 +360,4 @@ void monster_health_bar_write(monster_st* monster) {
 	for (int i = 10; i > num; i--) {
 		printf("¡à");
 	}
-
-	gotoxy(0, 10); printf("%4d", monster->monster_hp);
 }
