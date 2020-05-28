@@ -153,7 +153,9 @@ void battle(int stage, monster_st* monster, player_st* player) {
 		//ÆÐ¹è
 		system("cls");
 		lose_image(stage);
-		temp_getch = _getch();
+		do {
+			temp_getch = _getch();
+		} while (temp_getch != 13);
 		system("cls");
 	}
 
@@ -400,178 +402,6 @@ void monster_health_bar_write(monster_st* monster) {
 	for (int i = 10; i > num; i--) {
 		printf("¡à");
 	}
-<<<<<<< HEAD
-
-	gotoxy(0, 10); printf("%4d", monster->monster_hp);
-}
-
-
-void monster1() {
-	int xpos = 17, ypos = 5;
-	color_change(12);
-	gotoxy(xpos + 2, ypos + 1);
-	printf("¡á");
-	gotoxy(xpos + 2, ypos + 2);
-	printf("¡á");
-	gotoxy(xpos + 2, ypos + 3);
-	printf("¡á");
-	gotoxy(xpos + 4, ypos + 1);
-	printf("¡á");
-	gotoxy(xpos + 4, ypos + 2);
-	printf("¡á");
-	gotoxy(xpos + 4, ypos + 3);
-	printf("¡á");
-	gotoxy(xpos + 6, ypos + 1);
-	printf("¡á");
-	gotoxy(xpos + 6, ypos + 2);
-	printf("¡á");
-	gotoxy(xpos + 6, ypos + 3);
-	printf("¡á");
-	gotoxy(xpos + 8, ypos + 1);
-	printf("¡á");
-	gotoxy(xpos + 8, ypos + 2);
-	printf("¡á");
-	gotoxy(xpos + 8, ypos + 3);
-	printf("¡á");
-	color_change(7);
-	color_change(13);
-	gotoxy(xpos, ypos);
-	printf("¡á");
-	gotoxy(xpos + 2, ypos);
-	printf("¡á");
-	gotoxy(xpos + 8, ypos);
-	printf("¡á"); 
-	gotoxy(xpos + 10, ypos);
-	printf("¡á");
-	gotoxy(xpos, ypos + 4);
-	printf("¡á");
-	gotoxy(xpos + 2, ypos + 4);
-	printf("¡á");
-	gotoxy(xpos + 8, ypos + 4);
-	printf("¡á");
-	gotoxy(xpos + 10, ypos + 4);
-	printf("¡á");
-	color_change(7);
-}
-
-void monster2() {
-	int xpos = 17, ypos = 5;
-	color_change(10);
-	gotoxy(xpos + 2, ypos + 1);
-	printf("¢Ã");
-	gotoxy(xpos + 2, ypos + 2);
-	printf("¢Ã");
-	gotoxy(xpos + 2, ypos + 3);
-	printf("¢Ã");
-	gotoxy(xpos + 4, ypos + 1);
-	printf("¢Ã");
-	gotoxy(xpos + 4, ypos + 2);
-	printf("¢Ã");
-	gotoxy(xpos + 4, ypos + 3);
-	printf("¢Ã");
-	gotoxy(xpos + 6, ypos + 1);
-	printf("¢Ã");
-	gotoxy(xpos + 6, ypos + 2);
-	printf("¢Ã");
-	gotoxy(xpos + 6, ypos + 3);
-	printf("¢Ã");
-	gotoxy(xpos + 8, ypos + 1);
-	printf("¢Ã");
-	gotoxy(xpos + 8, ypos + 2);
-	printf("¢Ã");
-	gotoxy(xpos + 8, ypos + 3);
-	printf("¢Ã");
-	color_change(7);
-	color_change(9);
-	gotoxy(xpos, ypos);
-	printf("¢Â");
-	gotoxy(xpos + 2, ypos);
-	printf("¢Â");
-	gotoxy(xpos + 8, ypos);
-	printf("¢Â");
-	gotoxy(xpos + 10, ypos);
-	printf("¢Â");
-	gotoxy(xpos, ypos + 4);
-	printf("¢Â");
-	gotoxy(xpos + 2, ypos + 4);
-	printf("¢Â");
-	gotoxy(xpos + 8, ypos + 4);
-	printf("¢Â");
-	gotoxy(xpos + 10, ypos + 4);
-	printf("¢Â");
-	color_change(7);
-}
-
-void monster3() {
-	int xpos = 18, ypos = 7;
-	color_change(11);
-	gotoxy(xpos, ypos);
-	printf("¢Â");
-	gotoxy(xpos + 4, ypos - 2);
-	printf("¢Â");
-	gotoxy(xpos + 8, ypos);
-	printf("¢Â");
-	gotoxy(xpos + 4, ypos + 2);
-	printf("¢Â");
-	gotoxy(xpos + 4, ypos);
-	printf("¢Â");
-	color_change(3);
-	gotoxy(xpos + 2, ypos - 1);
-	printf("¢Ã");
-	gotoxy(xpos + 2, ypos + 1);
-	printf("¢Ã");
-	gotoxy(xpos + 6, ypos - 1);
-	printf("¢Ã");
-	gotoxy(xpos + 6, ypos + 1);
-	printf("¢Ã");
-	color_change(7);
-}
-
-void monster4() {
-	int xpos = 18, ypos = 7;
-	color_change(2);
-	gotoxy(xpos, ypos);
-	printf("¢Â");
-	gotoxy(xpos + 2, ypos - 1);
-	printf("¢Â");
-	gotoxy(xpos + 4, ypos - 2);
-	printf("¢Â");
-	gotoxy(xpos + 2, ypos + 1);
-	printf("¢Â");
-	gotoxy(xpos + 8, ypos);
-	printf("¢Â");	
-	gotoxy(xpos + 4, ypos + 2);
-	printf("¢Â");
-	gotoxy(xpos + 6, ypos - 1);
-	printf("¢Â");
-	gotoxy(xpos + 6, ypos + 1);
-	printf("¢Â");
-	color_change(10);
-	gotoxy(xpos + 2, ypos);
-	printf("¢Â");
-	gotoxy(xpos + 4, ypos);
-	printf("¢Â");
-	gotoxy(xpos + 6, ypos);
-	printf("¢Â");
-	color_change(7);
-}
-
-void monster5() {
-	int xpos = 20, ypos = 7;
-	color_change(8);
-	gotoxy(xpos, ypos);
-	printf("¢Â");
-	gotoxy(xpos + 2, ypos - 1);
-	printf("¢Â");
-	gotoxy(xpos + 4, ypos);
-	printf("¢Â");
-	gotoxy(xpos + 2, ypos + 1);
-	printf("¢Â");
-	color_change(15);
-	gotoxy(xpos + 2, ypos);
-	printf("¢Â");
-	color_change(7);
-=======
 	gotoxy(monster->monster_hp_bar_pos.xPos, monster->monster_hp_bar_pos.yPos + 1);
 	if (monster->monster_hp > 99999999) {
 		printf("99999999+");
@@ -579,5 +409,4 @@ void monster5() {
 	else {
 		printf("%d", monster->monster_hp);
 	}
->>>>>>> e391331b0a3c239d43380fdb6c18571317c65ec2
 }

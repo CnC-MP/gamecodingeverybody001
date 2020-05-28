@@ -25,8 +25,8 @@ void lose_image(int stage) {
 	color_change(14);
 	printf("이걸 지누!!");
 	color_change(11);
-	gotoxy(10, 22);
-	printf("Press any key to continue.");
+	gotoxy(9, 22);
+	printf("Press any enter to continue.");
 	color_change(7);
 }
 
