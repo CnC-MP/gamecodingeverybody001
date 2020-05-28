@@ -354,7 +354,7 @@ int player_take_damage(player_st* player, monster_st* monster) {
 void monster_health_bar_write(monster_st* monster) {
 	int num = (int)round(10 * monster->monster_hp / monster->monster_max_hp);
 	gotoxy(monster->monster_hp_bar_pos.xPos, monster->monster_hp_bar_pos.yPos);
-	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á");
+	printf("                    ");
 	monster->monster_hp_bar_pos.xPos = monster->monster_pos.xPos + monster->monster_width - 10;
 	if (monster->monster_hp_bar_pos.xPos < 0) {
 		monster->monster_hp_bar_pos.xPos = 0;
