@@ -16,7 +16,8 @@ void monster_fire(monster_st* monster, player_st* player, std::deque<monster_amm
 void monster_ammu_movement(monster_st* monster, std::deque<monster_ammu>& deque_monster_ammu, int* monster_ammu_movement_tick);
 void monster_ammu_delete(std::deque<monster_ammu>& deque_monster_ammu);
 void monster_ammu_write(std::deque<monster_ammu>& deque_monster_ammu);
-void player_ammu_movement(player_st* player, std::deque<location>& t, int* player_fire_tick, bool check);
+void player_ammu_movement(player_st* player, std::deque<location>& deque_player_ammu, int* player_fire_tick, bool check);
+void monster_be_shot(monster_st* monster, std::deque<location>& deque_player_ammu);
 
 void battle(int stage) {
 	int lower_limit = 26;
@@ -42,21 +43,19 @@ void battle(int stage) {
 	monster.monster_preset = 0;
 	
 	
-	std::deque<location> t;
-
-
+	std::deque<location> deque_player_ammu;
 	std::deque<monster_ammu> deque_monster_ammu;
 
 	int upper_limit = monster.monster_pos.yPos + monster.monster_height + 9;
 	monster_movement(&monster, &monster_movement_tick, true);
 	monster_fire(&monster, &player, deque_monster_ammu, &monster_fire_tick, true);
-	player_ammu_movement(&player, t, &player_fire_tick, true);
+	player_ammu_movement(&player, deque_player_ammu, &player_fire_tick, true);
 
 	
 	while (true) {
 		monster_write(&monster);
 		monster_movement(&monster, &monster_movement_tick, false);
-		player_ammu_movement(&player, t, &player_fire_tick, false);
+		player_ammu_movement(&player, deque_player_ammu, &player_fire_tick, false);
 		//플레이어 총알 발사 관련 함수 //직선  //Queue로 만듦
 		//몬스터 총알 발사 관련 함수  //대각선 //Queue로 만듦
 		monster_fire(&monster, &player, deque_monster_ammu, &monster_fire_tick, false);
@@ -68,13 +67,16 @@ void battle(int stage) {
 		//플레이어 총알 표시 관련 함수
 		//몬스터 총알 표시 관련 함수
 		//피격 판단 및 추후 계산 
+
+		monster_be_shot(&monster, deque_player_ammu);
+
 		if (_kbhit() != 0) {
 			temp = _getch();
 			if (temp == 32) {
 				location temp_player_ammu_pos;
 				temp_player_ammu_pos.xPos = player.player_pos.xPos;
 				temp_player_ammu_pos.yPos = player.player_pos.yPos - 1;
-				t.push_back(temp_player_ammu_pos);
+				deque_player_ammu.push_back(temp_player_ammu_pos);
 			}
 			else if (temp == 'a' || temp == 'A') {// 0
 				if (player.player_pos.xPos > 0)
@@ -223,16 +225,16 @@ void monster_ammu_write(std::deque<monster_ammu>& deque_monster_ammu) {
 	color_change(7);
 }
 
-void player_ammu_movement(player_st* player, std::deque<location> &t, int* player_fire_tick, bool check) {
+void player_ammu_movement(player_st* player, std::deque<location>& deque_player_ammu, int* player_fire_tick, bool check) {
 	if ((*player_fire_tick % player->player_ammu_movement_tickrate) == 0 || check) {
 		*player_fire_tick = 1;
 		int temp = 0;
-		for (auto& element : t) {
+		for (auto& element : deque_player_ammu) {
 			gotoxy(element.xPos, element.yPos);
 			printf("  ");
 			element.yPos -= 1;
 			if (element.yPos < 0) {
-				t.erase(t.begin() + temp);
+				deque_player_ammu.erase(deque_player_ammu.begin() + temp);
 				continue;
 			}
 			gotoxy(element.xPos, element.yPos);
@@ -242,4 +244,22 @@ void player_ammu_movement(player_st* player, std::deque<location> &t, int* playe
 	}
 	else
 		*player_fire_tick = *player_fire_tick + 1;
+}
+
+void monster_be_shot(monster_st* monster, std::deque<location>& deque_player_ammu) {
+	int temp = 0;
+	for (auto& element : deque_player_ammu) {
+		bool bool_temp = false;
+		if ((element.xPos >= monster->monster_pos.xPos) && (element.xPos <= (monster->monster_pos.xPos + monster->monster_width - 1))) {
+			if ((element.yPos >= monster->monster_pos.yPos) && (element.yPos <= (monster->monster_pos.yPos + monster->monster_pos.yPos - 1))) {
+				bool_temp = true;
+			}
+		}
+		if (bool_temp) {
+			deque_player_ammu.erase(deque_player_ammu.begin() + temp);
+			//피격 후 계산
+
+		}
+		temp++;
+	}
 }

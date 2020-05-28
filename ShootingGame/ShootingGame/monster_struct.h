@@ -11,6 +11,8 @@ typedef struct Monster_st {
 	int monster_ammu_movement_tickrate;
 	bool monster_toward_right;
 	int monster_preset;
+	int monster_hp;
+	int monster_attack;
 } monster_st;
 
 typedef struct Monster_ammu {
