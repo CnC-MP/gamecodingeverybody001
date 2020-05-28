@@ -328,9 +328,12 @@ int monster_take_damage(player_st* player, monster_st* monster) {
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::normal_distribution<double> dist;
-	int damage = (int)round(player->player_damage * (1 + dist(gen)));
+	int damage = (int)round(player->player_damage * (1 + dist(gen) / 3));
 	if ((rand() / RAND_MAX) < player->player_critical_percent) {
 		damage = (int)round(damage * player->player_critical);
+	}
+	if (damage < 1) {
+		damage = 1;
 	}
 	monster->monster_hp -= damage;
 	if (monster->monster_hp <= 0) {
@@ -361,6 +364,14 @@ void monster_health_bar_write(monster_st* monster) {
 	}
 	if (monster->monster_hp_bar_pos.xPos > 26) {
 		monster->monster_hp_bar_pos.xPos = 26;
+	}
+
+	gotoxy(monster->monster_hp_bar_pos.xPos, monster->monster_hp_bar_pos.yPos);
+	for (int i = 0; i < num; i++) {
+		printf("бс");
+	}
+	for (int i = 10; i > num; i--) {
+		printf("бр");
 	}
 
 	gotoxy(0, 10); printf("%4d", monster->monster_hp);
