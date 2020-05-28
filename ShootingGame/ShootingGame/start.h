@@ -20,6 +20,7 @@ void player_ammu_movement(player_st* player, std::deque<location>& deque_player_
 void monster_be_shot(monster_st* monster, std::deque<location>& deque_player_ammu);
 void player_be_shot(player_st* player, std::deque<monster_ammu>& deque_monster_ammu);
 //void monster_tack_damage();
+void player_health_bar_write(player_st* player);
 
 void battle(int stage) {
 	int lower_limit = 26;
@@ -59,7 +60,7 @@ void battle(int stage) {
 		monster_movement(&monster, &monster_movement_tick, false);
 		player_ammu_movement(&player, deque_player_ammu, &player_fire_tick, false);
 		player_be_shot(&player, deque_monster_ammu);
-
+		player_health_bar_write(& player);
 		//플레이어 총알 발사 관련 함수 //직선  //Queue로 만듦
 		//몬스터 총알 발사 관련 함수  //대각선 //Queue로 만듦
 		monster_fire(&monster, &player, deque_monster_ammu, &monster_fire_tick, false);
@@ -276,5 +277,30 @@ void player_be_shot(player_st* player,  std::deque<monster_ammu>& deque_monster_
 				continue;
 		}
 			temp++;
+	}
+}
+
+void player_health_bar_write(player_st* player) {
+	gotoxy(player->player_pos.xPos, player->player_pos.yPos + 2);
+	printf("■");
+	int temp;
+	if (_kbhit() != 0) {
+		temp = _getch();
+		if (temp == 'a' || temp == 'A') {
+			gotoxy(player->player_pos.xPos + 2, player->player_pos.yPos);
+			printf("  ");
+		}
+		else if (temp == 's' || temp == 'S') {
+			gotoxy(player->player_pos.xPos, player->player_pos.yPos - 1);
+			printf("  ");
+		}
+		else if (temp == 'd' || temp == 'D') {
+			gotoxy(player->player_pos.xPos - 2, player->player_pos.yPos);
+			printf("  ");
+		}
+		else if (temp == 'w' || temp == 'W') {
+			gotoxy(player->player_pos.xPos, player->player_pos.yPos + 1);
+			printf("  ");
+		}
 	}
 }
