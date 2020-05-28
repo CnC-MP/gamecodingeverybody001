@@ -19,6 +19,7 @@ void monster_ammu_write(std::deque<monster_ammu>& deque_monster_ammu);\
 void player_ammu_movement(player_st* player, std::deque<location>& deque_player_ammu, int* player_fire_tick, bool check);
 void monster_be_shot(monster_st* monster, std::deque<location>& deque_player_ammu);
 void player_be_shot(player_st* player, std::deque<monster_ammu>& deque_monster_ammu);
+//void monster_tack_damage();
 
 void battle(int stage) {
 	int lower_limit = 26;
@@ -253,7 +254,7 @@ void monster_be_shot(monster_st* monster, std::deque<location>& deque_player_amm
 	int temp = 0;
 	for (auto& element : deque_player_ammu) {
 		bool bool_temp = false;
-		if ((element.xPos >= monster->monster_pos.xPos) && (element.xPos <= (monster->monster_pos.xPos + monster->monster_width - 1))) {
+		if ((element.xPos >= (monster->monster_pos.xPos - 1)) && (element.xPos <= (monster->monster_pos.xPos + 2 * monster->monster_width - 1))) {
 			if ((element.yPos >= monster->monster_pos.yPos) && (element.yPos <= (monster->monster_pos.yPos + monster->monster_pos.yPos - 1))) {
 				bool_temp = true;
 			}
