@@ -422,7 +422,7 @@ void monster_health_bar_write(monster_st* monster) {
 }
 
 
-void monster2() {
+void monster1() {
 	int xpos = 17, ypos = 5;
 	color_change(12);
 	gotoxy(xpos + 2, ypos + 1);
@@ -470,7 +470,7 @@ void monster2() {
 	color_change(7);
 }
 
-void monster1() {
+void monster2() {
 	int xpos = 17, ypos = 5;
 	color_change(10);
 	gotoxy(xpos + 2, ypos + 1);
@@ -518,7 +518,7 @@ void monster1() {
 	color_change(7);
 }
 
-void monster4() {
+void monster3() {
 	int xpos = 18, ypos = 7;
 	color_change(11);
 	gotoxy(xpos, ypos);
@@ -543,7 +543,7 @@ void monster4() {
 	color_change(7);
 }
 
-void monster5() {
+void monster4() {
 	int xpos = 18, ypos = 7;
 	color_change(2);
 	gotoxy(xpos, ypos);
@@ -572,7 +572,7 @@ void monster5() {
 	color_change(7);
 }
 
-void monster3() {
+void monster5() {
 	int xpos = 20, ypos = 7;
 	color_change(8);
 	gotoxy(xpos, ypos);
