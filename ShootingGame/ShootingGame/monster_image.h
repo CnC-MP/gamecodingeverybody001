@@ -3,7 +3,6 @@
 #include "monster_struct.h"
 
 void monster_write(monster_st* monster);
-void monster_feature_determine(monster_st* monster, int stage);
 
 void monster_write(monster_st* monster) {
 	color_change(0);
@@ -12,12 +11,4 @@ void monster_write(monster_st* monster) {
 	color_change(7);
 	fill2(monster->monster_pos.xPos, monster->monster_pos.yPos, monster->monster_pos.xPos + 2 * monster->monster_width - 2, monster->monster_pos.yPos + monster->monster_height - 1, "■"); //몬스터 아이콘 그리기
 	//체력바
-}
-
-void monster_feature_determine(monster_st* monster, int stage) {
-	monster->monster_width = 3;
-	monster->monster_height = 3;
-	monster->monster_tickrate = 50;
-	monster->monster_fire_tickrate = 150;
-	monster->monster_ammu_movement_tickrate = 20;
 }

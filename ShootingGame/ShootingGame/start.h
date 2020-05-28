@@ -9,6 +9,9 @@
 #include "player_struct.h"
 #include <deque>
 #include <math.h>
+#include <random>
+#include "monster_feature.h"
+#include "ending_interface.h"
 
 void battle(int stage, monster_st* monster, player_st* player);
 void monster_movement(monster_st* monster, int* monster_movement_tick, bool check);
@@ -17,42 +20,45 @@ void monster_ammu_movement(monster_st* monster, std::deque<monster_ammu>& deque_
 void monster_ammu_delete(std::deque<monster_ammu>& deque_monster_ammu);
 void monster_ammu_write(std::deque<monster_ammu>& deque_monster_ammu);\
 void player_ammu_movement(player_st* player, std::deque<location>& deque_player_ammu, int* player_fire_tick, bool check);
-void monster_be_shot(monster_st* monster, std::deque<location>& deque_player_ammu);
-void player_be_shot(player_st* player, std::deque<monster_ammu>& deque_monster_ammu);
-//void monster_tack_damage();
+int monster_be_shot(player_st* player, monster_st* monster, std::deque<location>& deque_player_ammu); //0: 게임 진행, 1: 게임 승리, 2: 게임 패배
+int player_be_shot(player_st* player, monster_st* monster, std::deque<monster_ammu>& deque_monster_ammu);
+int monster_take_damage(player_st* player, monster_st* monster);
+int player_take_damage(player_st* player, monster_st* monster);
+void monster_health_bar_write(monster_st* monster);
 
 void battle(int stage, monster_st* monster, player_st* player) {
+	int temp_getch;
+	int stage_finish = 0;
+	int temp_stage_finish;
 	int lower_limit = 26;
 	int temp;
 	int monster_movement_tick;
 	int monster_fire_tick;
 	int monster_ammu_movement_tick = 1;
 	int player_fire_tick = 1;
+
+	monster_feature_determine(monster, stage);
+
 	gotoxy(player->player_pos.xPos, player->player_pos.yPos);
 	printf("♠");
-	
-	monster_feature_determine(monster, stage);
-	monster->monster_pos.xPos = 23 - monster->monster_width;
-	monster->monster_pos.yPos = 3;
-	monster->ex_monster_pos.xPos = monster->monster_pos.xPos;
-	monster->ex_monster_pos.yPos = monster->monster_pos.yPos;
-	monster->monster_preset = 0;
-	
+
 	
 	std::deque<location> deque_player_ammu;
 	std::deque<monster_ammu> deque_monster_ammu;
 
 	int upper_limit = monster->monster_pos.yPos + monster->monster_height + 9;
+	
 	monster_movement(monster, &monster_movement_tick, true);
 	monster_fire(monster, player, deque_monster_ammu, &monster_fire_tick, true);
 	player_ammu_movement(player, deque_player_ammu, &player_fire_tick, true);
-	player_be_shot(player, deque_monster_ammu);
+
 	
-	while (true) {
+	while (stage_finish == 0) {
 		monster_write(monster);
+		monster_health_bar_write(monster);
 		monster_movement(monster, &monster_movement_tick, false);
 		player_ammu_movement(player, deque_player_ammu, &player_fire_tick, false);
-		player_be_shot(player, deque_monster_ammu);
+		player_be_shot(player, monster, deque_monster_ammu);
 
 		//플레이어 총알 발사 관련 함수 //직선  //Queue로 만듦
 		//몬스터 총알 발사 관련 함수  //대각선 //Queue로 만듦
@@ -66,7 +72,14 @@ void battle(int stage, monster_st* monster, player_st* player) {
 		//몬스터 총알 표시 관련 함수
 		//피격 판단 및 추후 계산 
 
-		monster_be_shot(monster, deque_player_ammu);
+		//monster_take_damage(player, monster);
+		//player_take_damage(player, monster);
+
+		stage_finish = monster_be_shot(player, monster, deque_player_ammu);
+		temp_stage_finish = player_be_shot(player, monster, deque_monster_ammu);
+		if (temp_stage_finish == 2) {
+			stage_finish = 2;
+		}
 
 		if (_kbhit() != 0) {
 			temp = _getch();
@@ -123,6 +136,21 @@ void battle(int stage, monster_st* monster, player_st* player) {
 		}
 		Sleep(10);
 	}
+	//while 바깥
+	if (stage_finish == 1) {
+		//승리
+		system("cls");
+		win_image(stage);
+		temp_getch = _getch();
+	}
+	else {
+		//패배
+		system("cls");
+		lose_image(stage);
+		temp_getch = _getch();
+	}
+
+
 }
 
 void monster_movement(monster_st* monster, int* monster_movement_tick, bool check) {
@@ -242,8 +270,9 @@ void player_ammu_movement(player_st* player, std::deque<location>& deque_player_
 		*player_fire_tick = *player_fire_tick + 1;
 }
 
-void monster_be_shot(monster_st* monster, std::deque<location>& deque_player_ammu) {
+int monster_be_shot(player_st* player, monster_st* monster, std::deque<location>& deque_player_ammu) {
 	int temp = 0;
+	int check = 0;
 	for (auto& element : deque_player_ammu) {
 		bool bool_temp = false;
 		if ((element.xPos >= (monster->monster_pos.xPos - 1)) && (element.xPos <= (monster->monster_pos.xPos + 2 * monster->monster_width - 1))) {
@@ -254,19 +283,66 @@ void monster_be_shot(monster_st* monster, std::deque<location>& deque_player_amm
 		if (bool_temp) {
 			deque_player_ammu.erase(deque_player_ammu.begin() + temp);
 			//피격 후 계산
-
+			check = monster_take_damage(player, monster);
 		}
 		temp++;
 	}
+	return check;
 }
 
-void player_be_shot(player_st* player,  std::deque<monster_ammu>& deque_monster_ammu) {
+int player_be_shot(player_st* player, monster_st* monster, std::deque<monster_ammu>& deque_monster_ammu) {
 	int temp = 0;
+	int check = 0;
 	for (auto& element : deque_monster_ammu) {
 		if (element.curr.xPos == player->player_pos.xPos && element.curr.yPos == player->player_pos.yPos) {
 				deque_monster_ammu.erase(deque_monster_ammu.begin() + temp);
+				//플레이어 피격 후 계산
+				check = player_take_damage(player, monster);
 				continue;
 		}
-			temp++;
+		temp++;
 	}
+	return check;
+}
+
+int monster_take_damage(player_st* player, monster_st* monster) {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::normal_distribution<double> dist;
+	int damage = (int)round(player->player_damage * (1 + dist(gen)));
+	if ((rand() / RAND_MAX) < player->player_critical_percent) {
+		damage = (int)round(damage * player->player_critical);
+	}
+	monster->monster_hp -= damage;
+	if (monster->monster_hp <= 0) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+int player_take_damage(player_st* player, monster_st* monster) {
+	player->player_hp -= monster->monster_damage;
+	if (player->player_hp <= 0) {
+		return 2;
+	}
+	else {
+		return 0;
+	}
+}
+
+void monster_health_bar_write(monster_st* monster) {
+	int num = (int)round(10 * monster->monster_hp / monster->monster_max_hp);
+	gotoxy(monster->monster_hp_bar_pos.xPos, monster->monster_hp_bar_pos.yPos);
+	printf("                        ");
+	monster->monster_hp_bar_pos.xPos = monster->monster_pos.xPos + monster->monster_width - 10;
+	if (monster->monster_hp_bar_pos.xPos < 0) {
+		monster->monster_hp_bar_pos.xPos = 0;
+	}
+	if (monster->monster_hp_bar_pos.xPos > 26) {
+		monster->monster_hp_bar_pos.xPos = 26;
+	}
+
+	gotoxy(0, 10); printf("%4d", monster->monster_hp);
 }

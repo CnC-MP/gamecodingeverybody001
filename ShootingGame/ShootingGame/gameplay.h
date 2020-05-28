@@ -19,9 +19,13 @@ void gamestart() {
 			monster_st monster;
 
 			player.player_ammu_movement_tickrate = 20;
+			player.player_critical = 2.0;
+			player.player_critical_percent = 0.0;
+			player.player_damage = 10;
+			player.player_hp = 100;
+			player.player_max_hp = 100;
 			player.player_pos.xPos = 22;
 			player.player_pos.yPos = 26;
-			player.player_hp = 100;
 			system("cls");
 			battle(1, &monster, &player);
 		}
