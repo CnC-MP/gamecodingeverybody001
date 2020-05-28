@@ -15,9 +15,10 @@ void monster_movement(monster_st* monster, int* monster_movement_tick, bool chec
 void monster_fire(monster_st* monster, player_st* player, std::deque<monster_ammu>& deque_monster_ammu, int* monster_fire_tick, bool check);
 void monster_ammu_movement(monster_st* monster, std::deque<monster_ammu>& deque_monster_ammu, int* monster_ammu_movement_tick);
 void monster_ammu_delete(std::deque<monster_ammu>& deque_monster_ammu);
-void monster_ammu_write(std::deque<monster_ammu>& deque_monster_ammu);
+void monster_ammu_write(std::deque<monster_ammu>& deque_monster_ammu);\
 void player_ammu_movement(player_st* player, std::deque<location>& deque_player_ammu, int* player_fire_tick, bool check);
 void monster_be_shot(monster_st* monster, std::deque<location>& deque_player_ammu);
+void player_be_shot(player_st* player, std::deque<monster_ammu>& deque_monster_ammu);
 
 void battle(int stage) {
 	int lower_limit = 26;
@@ -50,12 +51,14 @@ void battle(int stage) {
 	monster_movement(&monster, &monster_movement_tick, true);
 	monster_fire(&monster, &player, deque_monster_ammu, &monster_fire_tick, true);
 	player_ammu_movement(&player, deque_player_ammu, &player_fire_tick, true);
-
+	player_be_shot(&player, deque_monster_ammu);
 	
 	while (true) {
 		monster_write(&monster);
 		monster_movement(&monster, &monster_movement_tick, false);
 		player_ammu_movement(&player, deque_player_ammu, &player_fire_tick, false);
+		player_be_shot(&player, deque_monster_ammu);
+
 		//플레이어 총알 발사 관련 함수 //직선  //Queue로 만듦
 		//몬스터 총알 발사 관련 함수  //대각선 //Queue로 만듦
 		monster_fire(&monster, &player, deque_monster_ammu, &monster_fire_tick, false);
@@ -261,5 +264,16 @@ void monster_be_shot(monster_st* monster, std::deque<location>& deque_player_amm
 
 		}
 		temp++;
+	}
+}
+
+void player_be_shot(player_st* player,  std::deque<monster_ammu>& deque_monster_ammu) {
+	int temp = 0;
+	for (auto& element : deque_monster_ammu) {
+		if (element.curr.xPos == player->player_pos.xPos && element.curr.yPos == player->player_pos.yPos) {
+				deque_monster_ammu.erase(deque_monster_ammu.begin() + temp);
+				continue;
+		}
+			temp++;
 	}
 }
