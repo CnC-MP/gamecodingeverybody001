@@ -29,13 +29,13 @@ void monster_feature_determine(monster_st* monster, int stage) {
 		break;
 	}
 
-	if (stage == 1) {
+	if (true) {
 		monster->monster_ammu_movement_tickrate = 20;
 		monster->monster_damage = 10;
 		monster->monster_fire_tickrate = 150; //발사 속도
 		monster->monster_height = 3;
-		monster->monster_hp = 1000;
-		monster->monster_max_hp = 1000;
+		monster->monster_hp = 1;
+		monster->monster_max_hp = 1;
 		monster->monster_tickrate = 50; //움직이는 속도
 		monster->monster_width = 3;
 	}
