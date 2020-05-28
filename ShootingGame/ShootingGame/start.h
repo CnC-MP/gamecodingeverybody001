@@ -17,6 +17,7 @@ void monster_ammu_movement(monster_st* monster, std::deque<monster_ammu>& deque_
 void monster_ammu_delete(std::deque<monster_ammu>& deque_monster_ammu);
 void monster_ammu_write(std::deque<monster_ammu>& deque_monster_ammu);
 void player_ammu_movement(player_st* player, std::deque<location>& t, int* player_fire_tick, bool check);
+void player_be_shot(player_st* player, std::deque<monster_ammu>& deque_monster_ammu);
 
 void battle(int stage) {
 	int lower_limit = 26;
@@ -41,9 +42,7 @@ void battle(int stage) {
 	monster.ex_monster_pos.yPos = monster.monster_pos.yPos;
 	monster.monster_preset = 0;
 	
-	
 	std::deque<location> t;
-
 
 	std::deque<monster_ammu> deque_monster_ammu;
 
@@ -51,12 +50,13 @@ void battle(int stage) {
 	monster_movement(&monster, &monster_movement_tick, true);
 	monster_fire(&monster, &player, deque_monster_ammu, &monster_fire_tick, true);
 	player_ammu_movement(&player, t, &player_fire_tick, true);
-
+	player_be_shot(&player, deque_monster_ammu);
 	
 	while (true) {
 		monster_write(&monster);
 		monster_movement(&monster, &monster_movement_tick, false);
 		player_ammu_movement(&player, t, &player_fire_tick, false);
+		player_be_shot(&player, deque_monster_ammu);
 		//플레이어 총알 발사 관련 함수 //직선  //Queue로 만듦
 		//몬스터 총알 발사 관련 함수  //대각선 //Queue로 만듦
 		monster_fire(&monster, &player, deque_monster_ammu, &monster_fire_tick, false);
@@ -243,3 +243,15 @@ void player_ammu_movement(player_st* player, std::deque<location> &t, int* playe
 	else
 		*player_fire_tick = *player_fire_tick + 1;
 }
+
+void player_be_shot(player_st* player,  std::deque<monster_ammu>& deque_monster_ammu) {
+	int temp = 0;
+	for (auto& element : deque_monster_ammu) {
+		if (element.curr.xPos == player->player_pos.xPos && element.curr.yPos == player->player_pos.yPos) {
+				deque_monster_ammu.erase(deque_monster_ammu.begin() + temp);
+				continue;
+		}
+			temp++;
+	}
+}
+
