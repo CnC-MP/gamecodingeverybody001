@@ -27,6 +27,15 @@ int player_take_damage(player_st* player, monster_st* monster);
 void monster_health_bar_write(monster_st* monster);
 void player_health_bar_write(player_st* player);
 void monster1();
+void monster2();
+void monster3();
+void monster4();
+void monster5();
+void monster6();
+void monster7();
+void monster8();
+void monster9();
+void monster10();
 
 void battle(int stage, monster_st* monster, player_st* player) {
 	int temp_getch;
@@ -53,8 +62,16 @@ void battle(int stage, monster_st* monster, player_st* player) {
 	monster_movement(monster, &monster_movement_tick, true);
 	monster_fire(monster, player, deque_monster_ammu, &monster_fire_tick, true);
 	player_ammu_movement(player, deque_player_ammu, &player_fire_tick, true);
-	monster1();
-	
+	//monster1();
+	//monster2();
+	monster3();
+	//monster4();
+	//monster5();
+	//monster6();
+	//monster7();
+	//monster8();
+	//monster9();
+	//monster10();
 
 	while (stage_finish == 0) {
 		monster_write(monster);
@@ -63,7 +80,16 @@ void battle(int stage, monster_st* monster, player_st* player) {
 		player_ammu_movement(player, deque_player_ammu, &player_fire_tick, false);
 		player_be_shot(player, monster, deque_monster_ammu);
 		player_health_bar_write(player);
-		monster1();
+		//monster1();
+		//monster2();
+		monster3();
+		//monster4();
+		//monster5();
+		//monster6();
+		//monster7();
+		//monster8();
+		//monster9();
+		//monster10();
 		//플레이어 총알 발사 관련 함수 //직선  //Queue로 만듦
 		//몬스터 총알 발사 관련 함수  //대각선 //Queue로 만듦
 		monster_fire(monster, player, deque_monster_ammu, &monster_fire_tick, false);
@@ -396,7 +422,7 @@ void monster_health_bar_write(monster_st* monster) {
 }
 
 
-void monster1() {
+void monster2() {
 	int xpos = 17, ypos = 5;
 	color_change(12);
 	gotoxy(xpos + 2, ypos + 1);
@@ -441,5 +467,124 @@ void monster1() {
 	printf("■");
 	gotoxy(xpos + 10, ypos + 4);
 	printf("■");
+	color_change(7);
+}
+
+void monster1() {
+	int xpos = 17, ypos = 5;
+	color_change(10);
+	gotoxy(xpos + 2, ypos + 1);
+	printf("▣");
+	gotoxy(xpos + 2, ypos + 2);
+	printf("▣");
+	gotoxy(xpos + 2, ypos + 3);
+	printf("▣");
+	gotoxy(xpos + 4, ypos + 1);
+	printf("▣");
+	gotoxy(xpos + 4, ypos + 2);
+	printf("▣");
+	gotoxy(xpos + 4, ypos + 3);
+	printf("▣");
+	gotoxy(xpos + 6, ypos + 1);
+	printf("▣");
+	gotoxy(xpos + 6, ypos + 2);
+	printf("▣");
+	gotoxy(xpos + 6, ypos + 3);
+	printf("▣");
+	gotoxy(xpos + 8, ypos + 1);
+	printf("▣");
+	gotoxy(xpos + 8, ypos + 2);
+	printf("▣");
+	gotoxy(xpos + 8, ypos + 3);
+	printf("▣");
+	color_change(7);
+	color_change(9);
+	gotoxy(xpos, ypos);
+	printf("◈");
+	gotoxy(xpos + 2, ypos);
+	printf("◈");
+	gotoxy(xpos + 8, ypos);
+	printf("◈");
+	gotoxy(xpos + 10, ypos);
+	printf("◈");
+	gotoxy(xpos, ypos + 4);
+	printf("◈");
+	gotoxy(xpos + 2, ypos + 4);
+	printf("◈");
+	gotoxy(xpos + 8, ypos + 4);
+	printf("◈");
+	gotoxy(xpos + 10, ypos + 4);
+	printf("◈");
+	color_change(7);
+}
+
+void monster4() {
+	int xpos = 18, ypos = 7;
+	color_change(11);
+	gotoxy(xpos, ypos);
+	printf("◈");
+	gotoxy(xpos + 4, ypos - 2);
+	printf("◈");
+	gotoxy(xpos + 8, ypos);
+	printf("◈");
+	gotoxy(xpos + 4, ypos + 2);
+	printf("◈");
+	gotoxy(xpos + 4, ypos);
+	printf("◈");
+	color_change(3);
+	gotoxy(xpos + 2, ypos - 1);
+	printf("▣");
+	gotoxy(xpos + 2, ypos + 1);
+	printf("▣");
+	gotoxy(xpos + 6, ypos - 1);
+	printf("▣");
+	gotoxy(xpos + 6, ypos + 1);
+	printf("▣");
+	color_change(7);
+}
+
+void monster5() {
+	int xpos = 18, ypos = 7;
+	color_change(2);
+	gotoxy(xpos, ypos);
+	printf("◈");
+	gotoxy(xpos + 2, ypos - 1);
+	printf("◈");
+	gotoxy(xpos + 4, ypos - 2);
+	printf("◈");
+	gotoxy(xpos + 2, ypos + 1);
+	printf("◈");
+	gotoxy(xpos + 8, ypos);
+	printf("◈");	
+	gotoxy(xpos + 4, ypos + 2);
+	printf("◈");
+	gotoxy(xpos + 6, ypos - 1);
+	printf("◈");
+	gotoxy(xpos + 6, ypos + 1);
+	printf("◈");
+	color_change(10);
+	gotoxy(xpos + 2, ypos);
+	printf("◈");
+	gotoxy(xpos + 4, ypos);
+	printf("◈");
+	gotoxy(xpos + 6, ypos);
+	printf("◈");
+	color_change(7);
+}
+
+void monster3() {
+	int xpos = 20, ypos = 7;
+	color_change(8);
+	gotoxy(xpos, ypos);
+	printf("◈");
+	gotoxy(xpos + 2, ypos - 1);
+	printf("◈");
+	gotoxy(xpos + 4, ypos);
+	printf("◈");
+	gotoxy(xpos + 2, ypos + 1);
+	printf("◈");
+	color_change(15);
+	gotoxy(xpos + 2, ypos);
+	printf("◈");
 	color_change(7);
 }

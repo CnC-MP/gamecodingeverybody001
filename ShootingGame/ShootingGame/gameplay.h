@@ -13,8 +13,6 @@ void gamestart() {
 	int temp;
 	hideCursor();
 	system("mode con:cols=46 lines=30");
-	win_image(1);
-	_getch();
 	while (true) {
 		main_interface_write();
 		temp = _getch();
