@@ -244,7 +244,7 @@ void monster_ammu_delete(std::deque<monster_ammu>& deque_monster_ammu) {
 	color_change(0);
 	for (auto& element : deque_monster_ammu) {
 		gotoxy(element.curr.xPos, element.curr.yPos);
-		printf("  ");
+		printf("  "); 
 	}
 	color_change(7);
 }

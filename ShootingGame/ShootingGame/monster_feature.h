@@ -59,8 +59,8 @@ void monster_feature_determine(monster_st* monster, int stage) {
 	monster->monster_max_hp = 4 * arr[0];
 	monster->monster_damage = (int)round(0.5 * arr[1]);
 	monster->monster_ammu_movement_tickrate = (int)round(1 / (0.0025 * arr[2]));
-	monster->monster_fire_tickrate = (int)round(1 / (0.00025 * arr[3]));
-	monster->monster_tickrate = (int)round(1 / (0.001 * arr[4]));
+	monster->monster_fire_tickrate = (int)round(1 / (0.0005 * arr[3]));
+	monster->monster_tickrate = (int)round(1 / (0.0005 * arr[4]));
 
 
 	monster->monster_pos.xPos = 23 - monster->monster_width;
